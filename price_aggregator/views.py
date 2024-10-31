@@ -11,10 +11,8 @@ def product_list(request):
         query = request.GET["search"]  # Retrieve the search details
         products_1 = amazon_list(query)
         products_2 = ebay_list(query)
-        print(products_2)
 
-        # print(products_2["products"][0])
-        # print(products_1["content"]["offers"][5])
+        # print(products_1, "\n\n", products_2)
 
         products = []
 
@@ -25,7 +23,19 @@ def product_list(request):
 
                     soup = bs4.BeautifulSoup(response.text, "html.parser")
 
-                    img = soup.find("img", id="landingImage").get("src")
+                    try:
+                        img = soup.find("img", id="landingImage").get("src")
+
+                    except Exception:
+                        products.append(
+                            {
+                                "title": product["name"],
+                                "price": product["price"],
+                                "url": product["link"],
+                                # "img": img,
+                                "source": "Amazon",
+                            }
+                        )
 
                     products.append(
                         {
@@ -49,7 +59,7 @@ def product_list(request):
                 try:
                     products.append(
                         {
-                            "title": product["name"],
+                            "title": product["title"],
                             "price": product["sale_price"],
                             "url": product["link"],
                             "img": product["image_url"],
@@ -61,7 +71,8 @@ def product_list(request):
 
                 if len(products) >= 8:
                     break
-        except Exception:
+        except Exception as e:
+            print("error: ", e)
             return render(
                 request,
                 "product_list.html",
@@ -71,6 +82,6 @@ def product_list(request):
                 },
             )
             # print()
-
+        # print(products)
         return render(request, "product_list.html", {"products": products})
     return render(request, "product_list.html", {"products": []})

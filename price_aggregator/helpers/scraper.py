@@ -7,7 +7,7 @@ def amazon_list(search):
     querystring = {"term": search, "country": "us"}
 
     headers = {
-        "x-rapidapi-key": "1f80a503a5mshfe1fc74c6f7d90ep13625djsn7aff620569dd",
+        "x-rapidapi-key": "5edc61d304mshe00146a457cf79ep16c94fjsnd13b8d544ab2",
         "x-rapidapi-host": "amazon-merchant-data.p.rapidapi.com",
     }
 
@@ -20,9 +20,7 @@ def amazon_list(search):
 
 
 def ebay_list(search):
-    url = (
-        "https://ebay-average-selling-price.p.rapidapi.com/findCompletedItems"
-        )
+    url = "https://ebay-average-selling-price.p.rapidapi.com/findCompletedItems"
 
     payload = {
         "keywords": search,
@@ -34,7 +32,7 @@ def ebay_list(search):
         ],
     }
     headers = {
-        "x-rapidapi-key": "1f80a503a5mshfe1fc74c6f7d90ep13625djsn7aff620569dd",
+        "x-rapidapi-key": "5edc61d304mshe00146a457cf79ep16c94fjsnd13b8d544ab2",
         "x-rapidapi-host": "ebay-average-selling-price.p.rapidapi.com",
         "Content-Type": "application/json",
     }
